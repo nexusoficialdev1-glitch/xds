@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ApexGPT – Instalar</title>
+<style>
+:root {
+  --bg: #f2f2f7;
+  --card: #fff;
+  --tx: #1c1c1e;
+  --tx2: #8e8e93;
+  --sep: #d1d1d6;
+  --blue: #007aff;
+  --pill: #e9e9ef;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #000;
+    --card: #1c1c1e;
+    --tx: #f2f2f7;
+    --tx2: #98989f;
+    --sep: #38383a;
+    --blue: #0a84ff;
+    --pill: #2c2c2e;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #000;
+  --card: #1c1c1e;
+  --tx: #f2f2f7;
+  --tx2: #98989f;
+  --sep: #38383a;
+  --blue: #0a84ff;
+  --pill: #2c2c2e;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--bg); color: var(--tx); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+main { max-width: 640px; margin: 0 auto; padding: 28px 20px 40px; width: 100%; }
+
+.head { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+@media (min-width: 400px) { .head { flex-wrap: nowrap; } }
+
+.icon { width: 112px; height: 112px; border-radius: 25%; flex: none; overflow: hidden; box-shadow: 0 0 0 .5px rgba(0,0,0,.15); background: var(--card); display: grid; place-items: center; }
+.icon img { width: 100%; height: 100%; object-fit: cover; }
+
+h1 { font-size: 26px; line-height: 1.15; margin: 0 0 2px; letter-spacing: -.4px; }
+.sub { color: var(--tx2); font-size: 15px; margin: 0 0 12px; }
+.row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+.get { border: 0; background: var(--blue); color: #fff; font: 700 14px var(--font); padding: 7px 16px; border-radius: 99px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; min-width: 145px; height: 36px; transition: all .2s ease; }
+.get:active { opacity: .7; }
+.get.loading { background: var(--tx2); pointer-events: none; }
+.spinner { width: 16px; height: 16px; border: 2px solid #fff; border-top-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.note { color: var(--tx2); font-size: 11px; line-height: 1.2; }
+
+.stats { display: flex; margin: 26px 0; border-block: 1px solid var(--sep); padding: 12px 0; text-align: center; overflow-x: auto; }
+.stats div { flex: 1; border-left: 1px solid var(--sep); padding: 0 6px; min-width: 75px; }
+.stats div:first-child { border: 0; }
+.stats small { display: block; color: var(--tx2); font-size: 11px; }
+.stats b { font-size: 18px; color: var(--tx2); font-weight: 600; }
+
+h2 { font-size: 20px; margin-top: 24px; margin-bottom: 12px; }
+.shots { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; -webkit-overflow-scrolling: touch; }
+.phone { flex: none; width: 200px; height: 420px; border-radius: 30px; border: 6px solid #111; background: var(--card); scroll-snap-align: start; padding: 14px 10px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; position: relative; }
+.phone:before { content: ""; position: absolute; top: 6px; left: 50%; width: 56px; height: 14px; border-radius: 9px; background: #111; transform: translateX(-50%); }
+.t { margin-top: 18px; font-weight: 700; font-size: 13px; }
+.b { padding: 8px 10px; border-radius: 14px; font-size: 11px; line-height: 1.35; max-width: 88%; }
+.u { align-self: flex-end; background: var(--blue); color: #fff; border-bottom-right-radius: 4px; }
+.a { background: var(--pill); border-bottom-left-radius: 4px; }
+.in { margin-top: auto; border-radius: 99px; background: var(--pill); padding: 8px 12px; font-size: 11px; color: var(--tx2); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { background: var(--pill); border-radius: 99px; padding: 4px 10px; font-size: 10px; }
+p.d { font-size: 15px; line-height: 1.5; margin: 0; }
+
+.list { background: var(--card); border-radius: 12px; overflow: hidden; }
+.list button, .list .li { display: flex; justify-content: space-between; width: 100%; border: 0; background: none; color: var(--tx); font: 16px var(--font); padding: 13px 16px; text-align: left; cursor: pointer; border-top: 1px solid var(--sep); }
+.list > :first-child { border-top: 0; }
+.list button:after { content: "›"; color: var(--tx2); font-size: 22px; line-height: 1; }
+.li span { color: var(--tx2); }
+
+.steps { background: var(--card); border-radius: 12px; padding: 6px 16px; margin: 0; list-style: none; counter-reset: s; }
+.steps li { counter-increment: s; padding: 11px 0 11px 34px; position: relative; font-size: 15px; border-top: 1px solid var(--sep); }
+.steps li:first-child { border: 0; }
+.steps li:before { content: counter(s); position: absolute; left: 0; top: 10px; width: 24px; height: 24px; border-radius: 50%; background: var(--blue); color: #fff; font-size: 13px; font-weight: 600; display: grid; place-items: center; }
+
+footer { text-align: center; color: var(--tx2); font-size: 12px; margin-top: 28px; }
+footer button { background: none; border: 0; color: var(--blue); font: inherit; cursor: pointer; padding: 2px 4px; }
+
+.ov { position: fixed; inset: 0; background: rgba(0,0,0,.4); opacity: 0; pointer-events: none; transition: opacity .25s; z-index: 9; }
+.ov.on { opacity: 1; pointer-events: auto; }
+
+.sheet { position: fixed; left: 0; right: 0; bottom: 0; max-width: 640px; margin: 0 auto; height: 88%; background: var(--card); border-radius: 14px 14px 0 0; transform: translateY(100%); transition: transform .3s cubic-bezier(.2,.8,.2,1); z-index: 10; display: flex; flex-direction: column; }
+.sheet.on { transform: none; }
+.sh { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--sep); font-weight: 600; }
+.sh button { border: 0; background: none; color: var(--blue); font: 600 16px var(--font); cursor: pointer; }
+.sb { overflow: auto; padding: 4px 20px calc(24px + env(safe-area-inset-bottom, 0px)); font-size: 14.5px; line-height: 1.55; white-space: pre-line; }
+.sb h3 { font-size: 16px; margin: 20px 0 4px; }
+.grab { width: 36px; height: 5px; border-radius: 3px; background: var(--sep); margin: 6px auto 0; }
+
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="head">
+    <div class="icon">
+      <img src="./apexgpt_icon.png" alt="ApexGPT Icon">
+    </div>
+    <div>
+      <h1>ApexGPT</h1>
+      <p class="sub">Tu asistente de IA</p>
+      <div class="row">
+        <button class="get" id="get" onclick="iniciarDescarga()">Obtener</button>
+        <span class="note">Gratis</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div><small>Chat con IA</small><b>Sí</b></div>
+    <div><small>Búsqueda web</small><b>Sí</b></div>
+    <div><small>Dictado por voz</small><b>Sí</b></div>
+    <div><small>Adjuntos</small><b>Sí</b></div>
+  </div>
+
+  <h2>Vista previa</h2>
+  <div class="shots">
+    <div class="phone"><div class="t">ApexGPT</div>
+      <div class="b u">Explícame qué es una API</div>
+      <div class="b a">Una API es una forma en que dos programas se comunican entre sí…</div>
+      <div class="in">Escribe un mensaje</div></div>
+    <div class="phone"><div class="t">Historial</div>
+      <div class="b a">Receta de pan casero</div><div class="b a">Ideas para mi viaje</div><div class="b a">Resumen del PDF</div>
+      <div class="in">Buscar chats</div></div>
+    <div class="phone"><div class="t">Búsqueda web</div>
+      <div class="b u">¿Qué hay de nuevo hoy?</div>
+      <div class="chips"><span class="chip">Fuentes</span><span class="chip">En vivo</span></div>
+      <div class="b a">Esto es lo que encontré en la web…</div>
+      <div class="in">Mantén para dictar</div></div>
+  </div>
+
+  <h2>Descripción</h2>
+  <p class="d">ApexGPT es un chat con inteligencia artificial para preguntar, escribir y resolver tareas. Guarda tu historial en un panel lateral, te deja adjuntar archivos, dictar por voz y buscar en la web sin salir de la conversación.</p>
+
+  <h2>Cómo instalar</h2>
+  <ol class="steps">
+    <li>Toca <b>Obtener</b> en esta página.</li>
+    <li>Confirma la descarga cuando tu dispositivo lo pida.</li>
+    <li>Abre ApexGPT desde tu pantalla de inicio.</li>
+  </ol>
+
+  <h2>Información</h2>
+  <div class="list">
+    <div class="li">Versión <span>1.0</span></div>
+    <div class="li">Idioma <span>Español</span></div>
+    <button onclick="openS('terms')">Términos y condiciones</button>
+    <button onclick="openS('priv')">Política de privacidad</button>
+  </div>
+
+  <footer>
+    Al instalar aceptas los <button onclick="openS('terms')">Términos</button> y la <button onclick="openS('priv')">Privacidad</button>.
+  </footer>
+</main>
+
+<div class="ov" id="ov" onclick="closeS()"></div>
+
+<section class="sheet" id="terms" role="dialog" aria-modal="true" aria-label="Términos y condiciones">
+  <div class="grab"></div>
+  <div class="sh"><span>Términos y condiciones</span><button onclick="closeS()">Listo</button></div>
+  <div class="sb">Última actualización: 1 de octubre de 2026
+
+1. Uso de ApexGPT
+ApexGPT es un asistente de inteligencia artificial creado para ayudar con preguntas, información, escritura, programación y otras tareas.
+
+2. Uso responsable
+La información proporcionada por ApexGPT puede contener errores. Debes verificar información importante antes de utilizarla para tomar decisiones.
+
+3. Contenido generado por IA
+Las respuestas son generadas automáticamente y no representan necesariamente las opiniones de los desarrolladores de ApexGPT.
+
+4. Disponibilidad
+Algunas funciones pueden depender de servicios externos y podrían no estar disponibles temporalmente.
+
+5. Cambios
+Estos términos pueden actualizarse cuando sea necesario. La versión más reciente estará disponible desde la aplicación.
+
+6. Contacto
+Para consultas relacionadas con ApexGPT, utiliza los canales oficiales de contacto del proyecto.</div>
+</section>
+
+<section class="sheet" id="priv" role="dialog" aria-modal="true" aria-label="Política de privacidad">
+  <div class="grab"></div>
+  <div class="sh"><span>Política de privacidad</span><button onclick="closeS()">Listo</button></div>
+  <div class="sb">Última actualización: 1 de octubre de 2026
+
+1. Información
+ApexGPT puede procesar los mensajes que envías para generar respuestas.
+
+2. Historial
+Si tienes activada la opción "Guardar historial", las conversaciones pueden almacenarse localmente en tu dispositivo.
+
+3. Modo incógnito
+Cuando utilizas el modo incógnito, ApexGPT no guarda el historial de esa sesión dentro de la aplicación.
+
+4. Servicios externos
+Algunas funciones pueden utilizar servicios externos para procesar solicitudes, búsquedas web, generación de respuestas u otras funciones.
+
+5. Información personal
+No compartas contraseñas, documentos confidenciales ni información personal sensible dentro de tus conversaciones.
+
+6. Cambios
+Esta política puede actualizarse cuando cambien las funciones o servicios de ApexGPT.</div>
+</section>
+
+<script>
+var cur=null;
+function openS(id){closeS();cur=document.getElementById(id);cur.classList.add("on");document.getElementById("ov").classList.add("on")}
+function closeS(){if(cur)cur.classList.remove("on");cur=null;document.getElementById("ov").classList.remove("on")}
+document.addEventListener("keydown",function(e){if(e.key==="Escape")closeS()});
+
+function iniciarDescarga() {
+  var btn = document.getElementById("get");
+
+  // Efecto visual de carga
+  btn.classList.add("loading");
+  btn.innerHTML = '<div class="spinner"></div>';
+
+  // Nombre dinámico con timestamp (ej: ApexGPT_1727814947123.apk)
+  var nombreDinamico = "ApexGPT_" + Date.now() + ".apk";
+
+  // URL directa al archivo en tu release de GitHub
+  var urlApk = "https://github.com/nexusoficialdev1-glitch/xds/releases/download/APEX/ApexGPT.apk";
+
+  var a = document.createElement('a');
+  a.href = urlApk;
+  a.download = nombreDinamico;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  // Tras 1.5 segundos se quita el spinner y cambia el texto a "Reintentar descarga"
+  setTimeout(function() {
+    btn.classList.remove("loading");
+    btn.innerText = "Reintentar descarga";
+  }, 1500);
+}
+</script>
+</body>
+</html>
